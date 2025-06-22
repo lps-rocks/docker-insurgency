@@ -33,7 +33,7 @@ tail -f -n +1 /home/steam/insurgency/insurgency/logs/console.log &
 sleep 30
 
 # Loop in sleep - we have to do this so that the traps work
-while [ "$(pgrep srcds_run | wc -l)" -gt 0 ]; do
+while [ "$(pgrep srcds_linux | wc -l)" -gt 0 ]; do
 	sleep 1
 done 
 
