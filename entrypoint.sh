@@ -22,10 +22,10 @@ if [ ! -d /home/steam/insurgency ] || [ "${STEAM_AUTO_UPDATE}" != "false" ]; the
 fi
 
 # Launch server 
-sudo -u steam tmux new-session -d /home/steam/insurgency/srcds_run -game insurgency ${SERVER_ADDITIONAL_PARAMS}
+sudo -u steam tmux new-session -d /home/steam/insurgency/srcds_run -game insurgency -norestart -consolelog /home/steam/insurgency/insurgency/logs/console.log ${SERVER_ADDITIONAL_PARAMS}
 
 # Tail console log to output
-#tail -f -n +1 /home/steam/Zomboid/server-console.txt & 
+tail -f -n +1 /home/steam/insurgency/insurgency/logs/console.log & 
 
 # Wait at least 30 seconds
 sleep 30
