@@ -20,16 +20,10 @@ chown -Rf steam:steam /home/steam
 if [ ! -d /home/steam/insurgency ] || [ "${STEAM_AUTO_UPDATE}" != "false" ]; then
     sudo -u steam /usr/games/steamcmd "+force_install_dir /home/steam/insurgency +login anonymous +app_update ${STEAM_APP} validate +quit"
 fi
-# Create console log
-touch /home/steam/insurgency/insurgency/logs/console.log && chown steam:steam /home/steam/insurgency/insurgency/logs/console.log
-
 # Launch server 
-sudo -u steam tmux new-session -d /home/steam/insurgency/srcds_run -game insurgency -norestart -consolelog /home/steam/insurgency/insurgency/logs/console.log ${SERVER_ADDITIONAL_PARAMS}
+sudo -u steam tmux new-session -d /home/steam/insurgency/srcds_run -game insurgency -norestart ${SERVER_ADDITIONAL_PARAMS}
 
-# Tail console log to output
-tail -f -n +1 /home/steam/insurgency/insurgency/logs/console.log & 
-
-# Wait at least 30 seconds
+# Wait at least 30 seconds for server to boot
 sleep 30
 
 # Loop in sleep - we have to do this so that the traps work
