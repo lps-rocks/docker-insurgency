@@ -15,8 +15,11 @@ groupmod -g ${PGID} steam
 
 # Set the ownership of /data to the steam user
 chown -Rf steam:steam /home/steam 
-# Install server
-sudo -u steam /usr/games/steamcmd "+force_install_dir /home/steam/insurgency +login anonymous +app_update ${STEAM_APP} validate +quit"
+
+# Install or update server
+if [ ! -d /home/steam/insurgency ] || [ "${STEAM_AUTO_UPDATE}" != "false" ]; then
+    sudo -u steam /usr/games/steamcmd "+force_install_dir /home/steam/insurgency +login anonymous +app_update ${STEAM_APP} validate +quit"
+fi
 
 # Launch server 
 sudo -u steam tmux new-session -d /home/steam/insurgency/srcds_run -game insurgency ${SERVER_ADDITIONAL_PARAMS}
