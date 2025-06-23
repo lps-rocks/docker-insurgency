@@ -24,13 +24,17 @@ RUN echo steam steam/license note '' | debconf-set-selections
 
 # Install SteamCMD
 RUN apt-get update && \
-    apt-get -y install -y procps tmux locales sudo ca-certificates lib32gcc-s1 steamcmd zlib1g:i386 && \
+    apt-get -y install -y procps tmux locales sudo ca-certificates bash lib32gcc-s1 steamcmd net-tools zlib1g:i386 && \
     apt-get clean
 
 # Clean up APT
 RUN rm -rf /var/lib/apt/lists/* && \
     rm -rf /tmp/* && \
     rm -rf /var/tmp/*
+
+# Set Bash as default /bin/sh
+RUN echo "dash dash/sh boolean false" | debconf-set-selections && \
+    DEBIAN_FRONTEND=noninteractive dpkg-reconfigure dash
 
 # Set the locale
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
