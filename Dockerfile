@@ -24,7 +24,7 @@ RUN echo steam steam/license note '' | debconf-set-selections
 
 # Install SteamCMD
 RUN apt-get update && \
-    apt-get -y install -y procps tmux locales sudo ca-certificates lib32gcc-s1 steamcmd && \
+    apt-get -y install -y procps tmux locales sudo ca-certificates lib32gcc-s1 steamcmd zlib1g:i386 && \
     apt-get clean
 
 # Clean up APT
